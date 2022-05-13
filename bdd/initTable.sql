@@ -25,7 +25,7 @@ CREATE TABLE Mesure (
     freqCardiaque tinyint(3) UNSIGNED NOT NULL,
     positionX FLOAT(8) NOT NULL,
     positionY FLOAT(8) NOT NULL,
-    nbPas INT(6) NOT NULL,
+    nbPas SMALLINT(6) UNSIGNED NOT NULL,
     idSeance tinyint(3) UNSIGNED NOT NULL,
     PRIMARY KEY (dateMesure),
     FOREIGN KEY (idSeance) REFERENCES Seance(idSeance)

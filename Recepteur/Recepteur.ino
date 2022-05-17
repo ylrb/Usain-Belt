@@ -38,14 +38,14 @@ void loop(void) {
         refLong = (unsigned long) (refLong + rcv_payload.deltaLong);
 
         // On écrit dans le moniteur les valeurs reçues
-        Serial.println();
-        Serial.print("Pas : ");
-        Serial.println(rcv_payload.pas);
-        Serial.print("BPM : ");
+        Serial.println("DEBUT");
+        //Serial.print("BPM : ");
         Serial.println(rcv_payload.bpm);
-        Serial.print("Latitude : ");
+        //Serial.print("Pas : ");
+        Serial.println(rcv_payload.pas);
+        //Serial.print("Latitude : ");
         Serial.println(refLat);
-        Serial.print("Longitude : ");
+        //Serial.print("Longitude : ");
         Serial.println(refLong);
     }
 }

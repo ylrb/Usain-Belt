@@ -8,7 +8,6 @@ unsigned long refLong;
 
 void setup() {
   Serial.begin(9600);    // Initialiser la communication série 
-  Serial.println (F("Starting my first test"));
 
   refLat = 45678490;
   refLong = 4526759;
@@ -22,12 +21,11 @@ void loop(void) {
     if (millis() > 1000*tour) {
 
         // On écrit dans le moniteur les valeurs reçues
-        Serial.println();
-        Serial.println("Debut du paquet");
-        //Serial.print("Pas : ");
-        Serial.println(30456);
+        Serial.println("DEBUT");
         //Serial.print("BPM : ");
         Serial.println(189);
+        //Serial.print("Pas : ");
+        Serial.println(30456);
         //Serial.print("Latitude : ");
         Serial.println(refLat);
         //Serial.print("Longitude : ");

@@ -1,20 +1,25 @@
 #include  <SPI.h>
 #include  <RF24.h>
-#include "packet.h"
+#include "packets.h"
+
+static const int taille = 5;
 
 RF24 radio(9,10); 
 uint8_t address[6] = {0x1E,0xCE,0xCC,0xCE,0xCC};   // Adresse du pipe
-payload_t rcv_payload;
+payload_paquet payload;
+payload_ref payloadRef;
 
-unsigned long refLat;
-unsigned long refLong;
+// Coordonnées de référence
+unsigned long rLat;
+unsigned long rLong;
+
+// Coordonnées de la prise de mesure k
+unsigned long lat;
+unsigned long lon;
 
 void setup() {
   Serial.begin(9600);    // Initialiser la communication série 
   Serial.println (F("Starting my first test"));
-
-  refLat = 45678490;
-  refLong = 4526759;
   
   radio.begin();
   radio.setChannel(30);
@@ -25,27 +30,38 @@ void setup() {
   radio.enableDynamicPayloads();
 }
 
-void loop(void) {
-    unsigned long wait = micros();
-    boolean timeout = false;
+void loop(void) {  
     
     while (radio.available()) {
-        // On lit le payload
-        radio.read(&rcv_payload, sizeof(rcv_payload));
+      
+        // On différencie les deux types de payload selon leur taille dynamique 
+        switch (radio.getDynamicPayloadSize()) {
 
-        // On recalcule les latitude/longitude absolues grâce aux delta reçus
-        refLat = (unsigned long) (refLat + rcv_payload.deltaLat);
-        refLong = (unsigned long) (refLong + rcv_payload.deltaLong);
+            // Paquets de prises de mesure
+            case 32:
+                radio.read(&payload, sizeof(payload));
+                Serial.println("PAQUET");
+                // On écrit dans le moniteur les valeurs reçues
+                for (int k = 0; k < taille; k++) {
+                    Serial.println("DEBUT");
+                    Serial.println(payload.bpm[k]);
+                    Serial.println(payload.pas[k]);
+                    lat = (unsigned long) (rLat + payload.deltaLat[k]);
+                    lon = (unsigned long) (rLong + payload.deltaLong[k]);
+                    Serial.println(lat);
+                    Serial.println(lon);
+                }
+                break;
 
-        // On écrit dans le moniteur les valeurs reçues
-        Serial.println("DEBUT");
-        //Serial.print("BPM : ");
-        Serial.println(rcv_payload.bpm);
-        //Serial.print("Pas : ");
-        Serial.println(rcv_payload.pas);
-        //Serial.print("Latitude : ");
-        Serial.println(refLat);
-        //Serial.print("Longitude : ");
-        Serial.println(refLong);
+            // Coordonnées de référence
+            case 8:
+                radio.read(&payloadRef, sizeof(payloadRef));
+                rLat = payloadRef.refLat;
+                rLong = payloadRef.refLong;
+        }
+
+        // On actualise les coordonnées de référence
+        //rLat = payload.refLat;
+        //rLong = payload.refLong;
     }
 }

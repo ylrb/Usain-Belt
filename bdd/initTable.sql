@@ -4,10 +4,11 @@ DROP TABLE IF EXISTS Utilisateur;
 
 CREATE TABLE Utilisateur (
     idUtilisateur tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT,
-    login VARCHAR(8) NOT NULL,
-    mdpUtilisateur VARCHAR(8) NOT NULL,
+    nom VARCHAR(8) NOT NULL,
+    age tinyint(8) UNSIGNED,
     poids tinyint(3) UNSIGNED,
     taille tinyint(3) UNSIGNED,
+    genre boolean,
     PRIMARY KEY (idUtilisateur)
 );
 

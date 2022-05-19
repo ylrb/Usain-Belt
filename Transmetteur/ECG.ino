@@ -1,45 +1,52 @@
 #include <Wire.h>
 
-int U = 0;
-int iteration = 1; // Nombre d'itérations de la boucle
-unsigned char battements = 0; // Compteur de battements
-unsigned char battementsMinute = 0; // Battements dans la dernière minute
-bool superieur = false; // Booléen qui est vrai quand y a un battement
-int lim = 450; // Limite de U pour que cela soit considéré comme un battement
+int U = 0;              // Tension entre les électrodes
+int lim = 400;          // Limite de U pour que ce soit considéré comme un battement
+bool superieur = false; // Booléen qui est vrai quand U dépasse lim ; permet de similuer un front montant
+unsigned long t1 = 0;   // Temps du dernier battement
+unsigned long t2 = 0;   // Temps du battement précédent
+float freq = 0.0;       // Valeur de la fréquence cardiaque à partir des deux derniers temps
+float BPM = 0.0;        // Fréquence cardiaque avec le lissage
+float alpha = 0.2;      // Coefficient pour le lissage exponentiel
 
 void ECGSetup() {
-  pinMode(6, INPUT); // Pin pour LO +
-  pinMode(5, INPUT); // Pin pour LO -
+    pinMode(6, INPUT);  // Pin pour LO +
+    pinMode(5, INPUT);  // Pin pour LO -
+    if (!((digitalRead(5) == 1)||(digitalRead(6) == 1))) {
+        Serial.println("ECG OK!");
+    }
 }
 
 void ECGLoop() {
-
-  // Renvoie '!' si l'ECG ne fonctionne pas
-  if((digitalRead(5) == 1)||(digitalRead(6) == 1)){
-    //Serial.println('!');
-  } else {
-    
-    U = analogRead(A0);
-    
-    // Si U dépasse lim, un ajoute un battement au compteur
-    if ((!superieur)&&(U>lim)) {
-      battements++;
-      superieur = true;
-      // Chaque minute on affiche le BPM et on remet à zéro le compteur de battements
-      if (millis() > 10000*iteration) {
-        battementsMinute = battements;
-        battements = 0;
-        iteration++;
-      }
+    if ((digitalRead(5) == 1)||(digitalRead(6) == 1)){
+        Serial.println("Erreur de branchement de l'ECG"); 
+    } else {
+      
+        U = analogRead(A0);
+        
+        // Si U dépasse lim, un note le temps du battement et on calcule le nouveau BPM
+        if ((!superieur)&&(U>lim)) {
+            superieur = true;
+            t2 = t1;
+            t1 = micros();
+            if (t2 != 0) {
+                freq = 1000000.0/(t1-t2)*60;
+                if (BPM > 0) {
+                    BPM = alpha*freq + (1.0-alpha)*BPM; // La fréquence cardiaque est obtenue via lissage exponentiel entre la dernière fréquence et l'estimation précédente
+                } else {
+                    BPM = freq; // En début de session BPM = 0 donc il ne faut pas faire de lissage pour la première valeur
+                }   
+            }
+        }
+        
+        // Quand U arrête de dépasser lim, on remet superieur à false (front montant)
+        if ((superieur)&&(U<lim)) {
+            superieur = false;
+        }
+        
     }
-    
-    // Quand U arrête de dépasser lim, on remet superieur à false
-    if ((superieur)&&(U<lim)) {
-      superieur = false;
-    }
-  }
 }
 
 unsigned char ECGRead() {
-    return battementsMinute;
+    return (char)BPM;
 }

@@ -2,12 +2,14 @@
 #include  <RF24.h>
 #include "packets.h"
 
+// Réglages
+RF24 radio(9,10); 
+uint8_t address[6] = {0x1E,0xCE,0xCC,0xCE,0xCC};
 static const int taille = 5;
 
-RF24 radio(9,10); 
-uint8_t address[6] = {0x1E,0xCE,0xCC,0xCE,0xCC};   // Adresse du pipe
-payload_paquet payload;
-payload_ref payloadRef;
+// Payloads
+payload_paquet payload; // Payload de prises de mesures
+payload_ref payloadRef; // Payload de coordonnées de référence
 
 // Coordonnées de référence
 unsigned long rLat;
@@ -18,14 +20,12 @@ unsigned long lat;
 unsigned long lon;
 
 void setup() {
-  Serial.begin(9600);    // Initialiser la communication série 
-  Serial.println (F("Starting my first test"));
+  Serial.begin(9600);
   
   radio.begin();
   radio.setChannel(30);
   radio.setDataRate(RF24_2MBPS);
-
-  radio.openReadingPipe(0,address); // Ouvrir le Pipe en lecture
+  radio.openReadingPipe(0,address);
   radio.startListening();
   radio.enableDynamicPayloads();
 }
@@ -34,10 +34,10 @@ void loop(void) {
     
     while (radio.available()) {
       
-        // On différencie les deux types de payload selon leur taille dynamique 
+        // On différencie les deux types de payload selon leurs tailles dynamiques
         switch (radio.getDynamicPayloadSize()) {
 
-            // Paquets de prises de mesure
+            // Paquets de prises de mesure (32 bytes)
             case 32:
                 radio.read(&payload, sizeof(payload));
                 Serial.println("PAQUET");
@@ -53,15 +53,13 @@ void loop(void) {
                 }
                 break;
 
-            // Coordonnées de référence
+            // Coordonnées de référence (8 bytes)
             case 8:
                 radio.read(&payloadRef, sizeof(payloadRef));
                 rLat = payloadRef.refLat;
                 rLong = payloadRef.refLong;
         }
-
-        // On actualise les coordonnées de référence
-        //rLat = payload.refLat;
-        //rLong = payload.refLong;
+        
     }
+    
 }

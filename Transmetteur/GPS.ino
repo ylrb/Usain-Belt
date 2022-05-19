@@ -10,6 +10,7 @@ unsigned long coordonnees[2];     // Latitude/longitude en millionièmes de degr
 void GPSSetup()
 {
     SoftSerial.begin(9600);
+    Serial.println("GPS OK"); 
 }
  
 void GPSLoop()
@@ -22,7 +23,7 @@ void GPSLoop()
             }
         }
         lireBuffer(); // Méthode créée pour extraire les coordonnées du buffer
-        clearBuffer(); // On vide le buffer après chaque lecture
+        viderBuffer(); // On vide le buffer après chaque lecture
         compteur = 0;    
     }
 }
@@ -61,8 +62,8 @@ void lireBuffer() {
  * La latitude se trouve entre la 2e et 3e virgule, et la longitude entre la 4e et la 5e.
  */
 void lireCoordonnees() {
-    int virgules = 0;         // Nombre de virgules actuellement
-    String latitude = ""; // Strings des coordonnées
+    int virgules = 0;       // Nombre de virgules actuellement
+    String latitude = "";   // Strings des coordonnées
     String longitude = "";
     char charac = 'a';
 
@@ -83,12 +84,8 @@ void lireCoordonnees() {
     coordonnees[1] = longitude.toInt();
 }
 
-/*
- * Vide le buffer.
- */
-void clearBuffer() {
-    for (int i=0; i < compteur; i++)
-    {
+void viderBuffer() {
+    for (int i=0; i < compteur; i++) {
         buffer[i]=0;
     }
 }

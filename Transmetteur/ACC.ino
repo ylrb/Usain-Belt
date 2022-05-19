@@ -11,17 +11,17 @@ LSM6DS3 pedometer(I2C_MODE, 0x6A);
 
 void ACCSetup() {
     while (!Serial);
+
+    // Test de si le podomètre arrive à s'initialiser
     if (pedometer.begin() != 0) {
-        Serial.println("Device error");
-    } else {
-        Serial.println("Device OK!");
+        Serial.println("Erreur d'initialisation du podometre");
     }
 
     // Configuration de LSM6DS3 comme podomètre
     if (0 != config_pedometer(NOT_CLEAR_STEP)) {
-        Serial.println("Configure pedometer fail!");
+        Serial.println("Erreur de configuration du podometre");
     }
-    Serial.println("Success to Configure pedometer!");
+    Serial.println("ACC OK");
 }
 
 void ACCLoop() {
@@ -39,7 +39,7 @@ unsigned short ACCRead() {
     return (unsigned short) nombrePas;
 }
 
-//Setup mode podomètre
+// Setup mode podomètre
 int config_pedometer(bool clearStep) {
     uint8_t errorAccumulator = 0;
     uint8_t dataToWrite = 0;  // Variable temporaire

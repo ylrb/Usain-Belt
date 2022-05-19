@@ -11,3 +11,4 @@ Electrocardiogramme : https://www.sparkfun.com/products/12650
 Seeed_Arduino_LSM6DS3 : https://github.com/Seeed-Studio/Seeed_Arduino_LSM6DS3
 Wire : library par défault d'Arduino
 RF24 pour la télécommunication
+Libraries LinkedList et iostream pour l'ECG

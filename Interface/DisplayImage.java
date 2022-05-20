@@ -6,30 +6,26 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.*;
 
-/* Mon MainWindow pue, changez le. Et la y a le code pour display juste l'image tout seul.
+/* Mon MainWindow pue, changez le. Et la y a le code pour display juste l'image tout seul. */
+
 public class DisplayImage {
 
-    public static void main(String avg[]) throws IOException
-    {
-        DisplayImage abc=new DisplayImage();
-    }
+    public DisplayImage() throws IOException {
 
-    public DisplayImage() throws IOException
-    {
-        BufferedImage img=ImageIO.read(new File("image.jpg"));
+        Maps map = new Maps();
+        BufferedImage img=ImageIO.read(new File("Interface\\image.jpg"));
         ImageIcon icon=new ImageIcon(img);
         JFrame frame=new JFrame();
         frame.setLayout(new FlowLayout());
-        frame.setSize(200,300);
+        frame.setSize(500,400);
         JLabel lbl=new JLabel();
         lbl.setIcon(icon);
         frame.add(lbl);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-} */
 
-public class MainWindow extends JFrame {
+/* public class MainWindow extends JFrame {
 
     private static final int LARGEUR = 1280;
     private static final int HAUTEUR = 720;
@@ -63,5 +59,5 @@ public class MainWindow extends JFrame {
         carte.add(lbl);
         carte.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    }
+    } */
 }

@@ -15,13 +15,14 @@ void ACCSetup() {
     // Test de si le podomètre arrive à s'initialiser
     if (pedometer.begin() != 0) {
         Serial.println("Erreur d'initialisation du podometre");
+    } else {
+        Serial.println("ACC OK");
     }
 
     // Configuration de LSM6DS3 comme podomètre
     if (0 != config_pedometer(NOT_CLEAR_STEP)) {
         Serial.println("Erreur de configuration du podometre");
     }
-    Serial.println("ACC OK");
 }
 
 void ACCLoop() {

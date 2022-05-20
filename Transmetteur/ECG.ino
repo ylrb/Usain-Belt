@@ -1,7 +1,7 @@
 #include <Wire.h>
 
 int U = 0;              // Tension entre les électrodes
-int lim = 400;          // Limite de U pour que ce soit considéré comme un battement
+int lim = 450;          // Limite de U pour que ce soit considéré comme un battement
 bool superieur = false; // Booléen qui est vrai quand U dépasse lim ; permet de similuer un front montant
 unsigned long t1 = 0;   // Temps du dernier battement
 unsigned long t2 = 0;   // Temps du battement précédent
@@ -13,7 +13,7 @@ void ECGSetup() {
     pinMode(6, INPUT);  // Pin pour LO +
     pinMode(5, INPUT);  // Pin pour LO -
     if (!((digitalRead(5) == 1)||(digitalRead(6) == 1))) {
-        Serial.println("ECG OK!");
+        Serial.println("ECG OK");
     }
 }
 
@@ -48,5 +48,6 @@ void ECGLoop() {
 }
 
 unsigned char ECGRead() {
-    return (char)BPM;
+    int intBPM = round(BPM);
+    return (char)intBPM;
 }

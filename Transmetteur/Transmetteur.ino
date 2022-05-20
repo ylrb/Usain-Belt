@@ -44,7 +44,7 @@ void loop(){
         if (c == 4) {
             refLat = GPSReadLat();
             refLong = GPSReadLong();
-            envoiRef(refLat,refLong);
+            //envoiRef(refLat,refLong);
             c = 0;
         }
       

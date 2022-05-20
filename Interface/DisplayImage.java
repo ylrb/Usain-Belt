@@ -21,7 +21,7 @@ public class DisplayImage {
         JLabel lbl=new JLabel();
         lbl.setIcon(icon);
         frame.add(lbl);
-        frame.setVisible(true);
+        //frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 

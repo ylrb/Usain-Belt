@@ -9,7 +9,7 @@ import javax.swing.*;
 /* Mon MainWindow pue, changez le. Et la y a le code pour display juste l'image tout seul. */
 
 public class DisplayImage {
-
+    //comment uh
     public DisplayImage() throws IOException {
 
         Maps map = new Maps();

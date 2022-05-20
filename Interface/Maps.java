@@ -28,7 +28,7 @@ public class Maps {
         // Recupere l'image depuis l'url.
         URL url = new URL(urlString);
         BufferedImage img = ImageIO.read(url);
-        File file = new File("C:\\Users\\bulut\\Documents\\Test\\image.jpg");
+        File file = new File("Interface\\image.jpg");
         ImageIO.write(img, "jpg", file);
     }
 

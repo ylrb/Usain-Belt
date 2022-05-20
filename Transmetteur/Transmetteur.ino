@@ -50,10 +50,12 @@ void loop(){
       
         // On remplit les cases i des tableaux avec les mesures actuelles
         // Au lieu d'envoyer les coordonnées directement, on envoie la différence entre les coordonnées actuelles et celles de référence
-        bpmTab[i] = ECGRead();
-        pasTab[i] = ACCRead();
-        deltaLatTab[i] = (short) refLat - GPSReadLat();
-        deltaLongTab[i] = (short) refLong - GPSReadLong();
+        Serial.print("BPM : ");
+        Serial.println(ECGRead());
+        bpmTab[i-1] = ECGRead();
+        pasTab[i-1] = ACCRead();
+        deltaLatTab[i-1] = (short) refLat - GPSReadLat();
+        deltaLongTab[i-1] = (short) refLong - GPSReadLong();
 
         // Si on a fini le packet de 'taille' prises de mesure, on envoie le paquet et on remet i à 0
         if (i == taille) {

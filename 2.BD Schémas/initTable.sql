@@ -18,7 +18,7 @@ CREATE TABLE Seance (
     dateFin datetime(2),
     idUtilisateur tinyint(3) UNSIGNED NOT NULL,
     vitesseMoy float(4) UNSIGNED,
-    distanceParcourue smallint(5) UNSIGNED, 
+    distanceParcourue double UNSIGNED, 
     PRIMARY KEY (idSeance),
     FOREIGN KEY (idUtilisateur) REFERENCES Utilisateur(idUtilisateur)
 );

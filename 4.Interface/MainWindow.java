@@ -15,11 +15,13 @@ public class MainWindow extends JFrame implements ActionListener {
     private final Icon ICONE_2_OFF = new ImageIcon(getClass().getResource("assets/icone2off.png"));
     private final Icon ICONE_3_OFF = new ImageIcon(getClass().getResource("assets/icone3off.png"));
     private final Icon ICONE_4_OFF = new ImageIcon(getClass().getResource("assets/icone4off.png"));
+    private final Icon ICONE_5_OFF = new ImageIcon(getClass().getResource("assets/icone5off.png"));
     private final Icon ICONE_QUITTER_OFF = new ImageIcon(getClass().getResource("assets/iconeQuitteroff.png"));
     private final Icon ICONE_1_ON = new ImageIcon(getClass().getResource("assets/icone1on.png"));
     private final Icon ICONE_2_ON = new ImageIcon(getClass().getResource("assets/icone2on.png"));
     private final Icon ICONE_3_ON = new ImageIcon(getClass().getResource("assets/icone3on.png"));
     private final Icon ICONE_4_ON = new ImageIcon(getClass().getResource("assets/icone4on.png"));
+    private final Icon ICONE_5_ON = new ImageIcon(getClass().getResource("assets/icone5on.png"));
     private final Icon ICONE_QUITTER_ON = new ImageIcon(getClass().getResource("assets/iconeQuitteron.png"));
 
     // Boutons de la barre du haut
@@ -27,6 +29,7 @@ public class MainWindow extends JFrame implements ActionListener {
     private JButton bouton2 = new JButton(ICONE_2_OFF);
     private JButton bouton3 = new JButton(ICONE_3_OFF);
     private JButton bouton4 = new JButton(ICONE_4_OFF);
+    private JButton bouton5 = new JButton(ICONE_5_OFF);
     private JButton boutonQuitter = new JButton(ICONE_QUITTER_OFF);
     private JButton boutonNom = new JButton("Cafer");
 
@@ -64,23 +67,29 @@ public class MainWindow extends JFrame implements ActionListener {
         panelBoutons.add(bouton2);
         panelBoutons.add(bouton3);
         panelBoutons.add(bouton4);
-        bouton1.setPreferredSize(new Dimension(215,90));
-        bouton2.setPreferredSize(new Dimension(215,90));
-        bouton3.setPreferredSize(new Dimension(215,90));
-        bouton4.setPreferredSize(new Dimension(215,90));
+        panelBoutons.add(bouton5);
+        Dimension dim = new Dimension(170,90);
+        bouton1.setPreferredSize(dim);
+        bouton2.setPreferredSize(dim);
+        bouton3.setPreferredSize(dim);
+        bouton4.setPreferredSize(dim);
+        bouton5.setPreferredSize(dim);
         bouton1.setBackground(COULEUR_FOND);
         bouton2.setBackground(COULEUR_FOND);
         bouton3.setBackground(COULEUR_FOND);
         bouton4.setBackground(COULEUR_FOND);
+        bouton5.setBackground(COULEUR_FOND);
         Border bord = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(COULEUR_BORDS, 2), BorderFactory.createEmptyBorder(0,0,0,0));
         bouton1.setBorder(bord);
         bouton2.setBorder(bord);
         bouton3.setBorder(bord);
         bouton4.setBorder(bord);
+        bouton5.setBorder(bord);
         bouton1.addActionListener(this);
         bouton2.addActionListener(this);
         bouton3.addActionListener(this);
         bouton4.addActionListener(this);
+        bouton5.addActionListener(this);
         
         // Panel pour le nom de l'utilisateur
         JPanel panelNom = new JPanel();
@@ -151,7 +160,13 @@ public class MainWindow extends JFrame implements ActionListener {
                 bouton4.setIcon(ICONE_4_ON);
                 fenetre = new Fenetre4();
             }
+            if (e.getSource() == bouton5) {
+                iconesOff();
+                bouton5.setIcon(ICONE_5_ON);
+                fenetre = new Fenetre5();
+            }
             if (e.getSource() == boutonNom) {
+                boutonNom.setForeground(Color.WHITE);
                 JTextArea zoneTexte = new JTextArea(1, 10);
                 zoneTexte.setFont(new Font("Open Sans", Font.BOLD, 22));
                 JOptionPane.showMessageDialog(this, "Veuillez entrer votre ID utilisateur.");
@@ -160,6 +175,7 @@ public class MainWindow extends JFrame implements ActionListener {
                     boutonNom.setText(zoneTexte.getText());
                     break;
                 }
+                boutonNom.setForeground(Color.BLACK);
             }
             if (e.getSource() == boutonQuitter) {
                 System.exit(0);
@@ -177,5 +193,6 @@ public class MainWindow extends JFrame implements ActionListener {
         bouton2.setIcon(ICONE_2_OFF);
         bouton3.setIcon(ICONE_3_OFF);
         bouton4.setIcon(ICONE_4_OFF);
+        bouton5.setIcon(ICONE_5_OFF);
     }
 }

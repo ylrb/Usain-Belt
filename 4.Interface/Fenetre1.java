@@ -56,6 +56,8 @@ public class Fenetre1 extends JPanel {
         data1.add(caloriesTexte1);
         data1.add(caloriesValeurs1);
 
+        
+
         // Panel "cette semaine"
         JPanel panel2 = new JPanel();
         panel2.setLayout(new BorderLayout(0,10));

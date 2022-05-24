@@ -5,7 +5,6 @@ import java.util.LinkedList;
 
 public class Fenetre4 extends JPanel implements ActionListener {
 
-    private final static int MARGE = 25;
     private JButton boutonTri = new JButton("distance");
     private byte mode = 1;
     
@@ -23,7 +22,6 @@ public class Fenetre4 extends JPanel implements ActionListener {
 
         // Panel principal qui contient les deux panels
         JPanel conteneur = new JPanel();
-        //conteneur.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
         conteneur.setPreferredSize(new Dimension(MainWindow.LARGEUR, 585));
         add(conteneur);
 
@@ -67,15 +65,6 @@ public class Fenetre4 extends JPanel implements ActionListener {
             panelLignes.add(separateur);
             k++;
         }
-
-        
-
-
-
-
-
-
-
     }
 
     @Override

@@ -26,8 +26,8 @@ CREATE TABLE Seance (
 CREATE TABLE Mesure (
     dateMesure datetime(2) NOT NULL,
     freqCardiaque tinyint(3) UNSIGNED NOT NULL,
-    latitude FLOAT(8) NOT NULL,
-    longitude FLOAT(8) NOT NULL,
+    latitude double(8) NOT NULL,
+    longitude double(8) NOT NULL,
     nbPas SMALLINT(6) UNSIGNED NOT NULL,
     idSeance tinyint(3) UNSIGNED NOT NULL,
     vitesseInstant float(4) UNSIGNED,   

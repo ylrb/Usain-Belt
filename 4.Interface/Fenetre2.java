@@ -17,13 +17,12 @@ public class Fenetre2 extends JPanel {
 
 
         // Panel de gauche (la carte)
-        JPanel carte = new JPanel();
+        JLabel carte = new JLabel();
         conteneur.add(carte, BorderLayout.WEST);
         carte.setPreferredSize(new Dimension(700,530));
         carte.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2), BorderFactory.createEmptyBorder(0,0,0,0)));
-        carte.add(new JLabel("carte"));
-
-
+        carte.setIcon(new ImageIcon(getClass().getResource("assets/image.jpg")));
+        
 
         // Panel de droite
         JPanel panelDroite = new JPanel();

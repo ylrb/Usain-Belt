@@ -1,1 +1,0 @@
-Programme de visualisation des données obtenues grâce à la Usain Belt.

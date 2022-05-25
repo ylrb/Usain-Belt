@@ -9,7 +9,7 @@ public class Maps {
     // Les variables qui vont changer selon les donnees gps sauf zoom a definir.
     public double lon = 4.874785;
     public double lat = 45.78288;
-    public static boolean internet = true;
+    public static boolean internetAccess = true;
 
     private final int ZOOM = 16;
     private final int WIDTH = 700;
@@ -33,7 +33,7 @@ public class Maps {
             File file = new File(System.getProperty("user.dir") + System.getProperty("file.separator")+ "4.Interface/assets/carte.jpg");
             ImageIO.write(img, "jpg", file);
         } catch (IOException io) {
-            internet = false;
+            internetAccess = false;
         }
     }
 

@@ -21,7 +21,7 @@ public class Fenetre2 extends JPanel {
         conteneur.add(carte, BorderLayout.WEST);
         carte.setPreferredSize(new Dimension(700,530));
         carte.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2), BorderFactory.createEmptyBorder(0,0,0,0)));
-        if (Maps.internet == true) {
+        if (Maps.internetAccess == true) {
             carte.setIcon(new ImageIcon(getClass().getResource("assets/carte.jpg")));
         } else {
             carte.setIcon(new ImageIcon(getClass().getResource("assets/carte_erreur.png")));

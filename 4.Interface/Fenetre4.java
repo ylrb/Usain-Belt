@@ -55,7 +55,7 @@ public class Fenetre4 extends JPanel implements ActionListener {
         int k = 0;
         String s ="";
         for (Course c : courses) {
-            s = "Course du "+c.getDate()+" : "+c.getDistance()+" km | "+c.getAllure()+" min/km | "+c.getDuree()%60+"min"+c.getDuree()/60;
+            s = "Course du "+c.getDate()+" : "+c.getDistance()+" km | "+c.getAllure()+" min/km | "+c.getDuree()%60+"'"+c.getDuree()/60+"\"";
             lignes[k] = new JLabel(s, SwingConstants.CENTER);
             panelLignes.add(lignes[k]);
             lignes[k].setFont(new Font("Open Sans", Font.BOLD, 30));

@@ -1,6 +1,12 @@
 DROP TABLE IF EXISTS Mesure;
 DROP TABLE IF EXISTS Seance;
 DROP TABLE IF EXISTS Utilisateur;
+DROP TABLE IF EXISTS Ceinture;
+
+CREATE TABLE Ceinture (
+    idCeinture tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (idCeinture)
+);
 
 CREATE TABLE Utilisateur (
     idUtilisateur tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -9,7 +15,9 @@ CREATE TABLE Utilisateur (
     poids tinyint(3) UNSIGNED,
     taille tinyint(3) UNSIGNED,
     genre boolean,
-    PRIMARY KEY (idUtilisateur)
+    idCeinture tinyint(3) UNSIGNED,
+    PRIMARY KEY (idUtilisateur, nom),
+    FOREIGN KEY (idCeinture) REFERENCES Ceinture(idCeinture)
 );
 
 CREATE TABLE Seance (
@@ -34,3 +42,4 @@ CREATE TABLE Mesure (
     PRIMARY KEY (dateMesure),
     FOREIGN KEY (idSeance) REFERENCES Seance(idSeance)
 );
+

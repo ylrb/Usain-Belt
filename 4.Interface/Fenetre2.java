@@ -24,7 +24,7 @@ public class Fenetre2 extends JPanel {
         if (Maps.internet == true) {
             carte.setIcon(new ImageIcon(getClass().getResource("assets/carte.jpg")));
         } else {
-            carte.setIcon(new ImageIcon(getClass().getResource("assets/carte_erreur.jpg")));
+            carte.setIcon(new ImageIcon(getClass().getResource("assets/carte_erreur.png")));
         }
 
         // Panel de droite

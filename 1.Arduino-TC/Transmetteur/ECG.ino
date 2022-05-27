@@ -33,7 +33,7 @@ void ECGLoop() {
             if (t2 != 0) {
                 freq = 1000000.0/(t1-t2)*60;
                 if (BPM > 0) {
-                    if ((freq > 40 && freq < 200)) {
+                    if ((freq > 50 && freq < 200)) {
                       BPM = alpha*freq + (1.0-alpha)*BPM; // La fréquence cardiaque est obtenue via lissage exponentiel entre la dernière fréquence et l'estimation précédente
                     }
                 } else {

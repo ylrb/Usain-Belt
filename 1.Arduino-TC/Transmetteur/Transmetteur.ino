@@ -54,8 +54,8 @@ void loop(){
         Serial.println(ECGRead());
         bpmTab[i-1] = ECGRead();
         pasTab[i-1] = ACCRead();
-        deltaLatTab[i-1] = (short) (GPSReadLat()-refLat);
-        deltaLongTab[i-1] = (short) (GPSReadLong()-refLong);
+        deltaLatTab[i-1] = (short) (GPSReadLat()*1000000 - refLat);
+        deltaLongTab[i-1] = (short) (GPSReadLong()*1000000 - refLong);
 
         // Si on a fini le packet de 'taille' prises de mesure, on envoie le paquet et on remet i à 0
         if (i == taille) {

@@ -37,6 +37,13 @@ void loop(void) {
         // On différencie les deux types de payload selon leurs tailles dynamiques
         switch (radio.getDynamicPayloadSize()) {
 
+            // Coordonnées de référence (8 bytes)
+            case 8:
+                radio.read(&payloadRef, sizeof(payloadRef));
+                rLat = payloadRef.refLat;
+                rLong = payloadRef.refLong;
+                break;
+
             // Paquets de prises de mesure (32 bytes)
             case 32:
                 radio.read(&payload, sizeof(payload));
@@ -52,13 +59,8 @@ void loop(void) {
                     Serial.println(lon);
                 }
                 break;
-
-            // Coordonnées de référence (8 bytes)
-            case 8:
-                radio.read(&payloadRef, sizeof(payloadRef));
-                rLat = payloadRef.refLat;
-                rLong = payloadRef.refLong;
         }
+
         
     }
     

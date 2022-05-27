@@ -5,7 +5,7 @@ unsigned char buffer[64];         // Buffer pour récupérer la trame GPS en con
 int compteur;                     // Compteur pour le buffer
 String texte;                     // Texte issu du buffer
 char symbole;                     // Caractère tampon utilisé pour extraire les coordonnées de la trame GPS
-unsigned long coordonnees[2];     // Latitude/longitude en millionièmes de degré
+double coordonnees[2];     // Latitude/longitude en millionièmes de degré
 
 void GPSSetup()
 {
@@ -28,11 +28,11 @@ void GPSLoop()
     }
 }
 
-unsigned long GPSReadLat() {
+double GPSReadLat() {
     return coordonnees[0];
 }
 
-unsigned long GPSReadLong() {
+double GPSReadLong() {
     return coordonnees[1];
 }
 
@@ -72,16 +72,31 @@ void lireCoordonnees() {
         charac = texte.charAt(i);
         if (charac == ',') {
             virgules++;
-        } else if ((virgules == 2)&&(charac != '.')) { 
+        } else if ((virgules == 2)) {     // &&(charac != '.')
             latitude += (String) charac;
-        } else if ((virgules == 4)&&(charac != '.')) {
+        } else if ((virgules == 4)) {     // &&(charac != '.')
             longitude += (String) charac;
         }
     }
 
-    // On convertit en long (la taille d'un int n'est pas suffisante)
-    coordonnees[0] = latitude.toInt();
-    coordonnees[1] = longitude.toInt();
+    double lat = latitude.toDouble()*0.01;    //on place la virgule séparant degré et minute au bon endroit
+    double lon = longitude.toDouble()*0.01;
+
+    /*
+    Serial.print("Latitude :");
+    Serial.println(lat,6);
+    Serial.print("Longitude :");
+    Serial.println(lon,6);
+    */
+    
+    // On convertit en long (la taille d'un int n'est pas suffisante)   (GPSReadLat()+(GPSReadLat()-(int)(GPSReadLat()))/60)
+    coordonnees[0] = (floor(lat)+(lat-floor(lat))*(5.0/3));   // on convertit la partie décimale de minute vers degré
+    coordonnees[1] = (floor(lon)+(lon-floor(lon))*(5.0/3));
+    /*
+    Serial.println("Coords :");
+    Serial.println(coordonnees[0],6);
+    Serial.println(coordonnees[1],6);
+    */
 }
 
 void viderBuffer() {

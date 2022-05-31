@@ -138,54 +138,54 @@ public class MainWindow extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        conteneur.remove(fenetre);
+        if (e.getSource() == bouton1) {
+            iconesOff();
+            bouton1.setIcon(ICONE_1_ON);
+            fenetre = new Fenetre1();
+        }
         try {
-            conteneur.remove(fenetre);
-            if (e.getSource() == bouton1) {
-                iconesOff();
-                bouton1.setIcon(ICONE_1_ON);
-                fenetre = new Fenetre1();
-            }
             if (e.getSource() == bouton2) {
                 iconesOff();
                 bouton2.setIcon(ICONE_2_ON);
                 fenetre = new Fenetre2();
             }
-            if (e.getSource() == bouton3) {
-                iconesOff();
-                bouton3.setIcon(ICONE_3_ON);
-                fenetre = new Fenetre3();
-            }
-            if (e.getSource() == bouton4) {
-                iconesOff();
-                bouton4.setIcon(ICONE_4_ON);
-                fenetre = new Fenetre4();
-            }
-            if (e.getSource() == bouton5) {
-                iconesOff();
-                bouton5.setIcon(ICONE_5_ON);
-                fenetre = new Fenetre5();
-            }
-            if (e.getSource() == boutonNom) {
-                boutonNom.setForeground(Color.WHITE);
-                JTextArea zoneTexte = new JTextArea(1, 10);
-                zoneTexte.setFont(new Font("Open Sans", Font.BOLD, 22));
-                JOptionPane.showMessageDialog(this, "Veuillez entrer votre ID utilisateur.");
-                switch (JOptionPane.showConfirmDialog(null, new JScrollPane(zoneTexte))) {
-                    case JOptionPane.OK_OPTION:
-                    boutonNom.setText(zoneTexte.getText());
-                    break;
-                }
-                boutonNom.setForeground(Color.BLACK);
-            }
-            if (e.getSource() == boutonQuitter) {
-                System.exit(0);
-            }
-            conteneur.add(fenetre);
-            conteneur.validate();
-            conteneur.repaint();
         } catch (IOException io) {
             System.out.println("Erreur carte !");
         }
+        if (e.getSource() == bouton3) {
+            iconesOff();
+            bouton3.setIcon(ICONE_3_ON);
+            fenetre = new Fenetre3();
+        }
+        if (e.getSource() == bouton4) {
+            iconesOff();
+            bouton4.setIcon(ICONE_4_ON);
+            fenetre = new Fenetre4();
+        }
+        if (e.getSource() == bouton5) {
+            iconesOff();
+            bouton5.setIcon(ICONE_5_ON);
+            fenetre = new Fenetre5();
+        }
+        if (e.getSource() == boutonNom) {
+            boutonNom.setForeground(Color.WHITE);
+            JTextArea zoneTexte = new JTextArea(1, 10);
+            zoneTexte.setFont(new Font("Open Sans", Font.BOLD, 22));
+            JOptionPane.showMessageDialog(this, "Veuillez entrer votre ID utilisateur.");
+            switch (JOptionPane.showConfirmDialog(null, new JScrollPane(zoneTexte))) {
+                case JOptionPane.OK_OPTION:
+                boutonNom.setText(zoneTexte.getText());
+                break;
+            }
+            boutonNom.setForeground(Color.BLACK);
+        }
+        if (e.getSource() == boutonQuitter) {
+            System.exit(0);
+        }
+        conteneur.add(fenetre);
+        conteneur.validate();
+        conteneur.repaint();
     }
 
     public void iconesOff() {

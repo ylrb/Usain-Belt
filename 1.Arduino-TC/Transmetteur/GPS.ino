@@ -5,7 +5,9 @@ unsigned char buffer[64];         // Buffer pour récupérer la trame GPS en con
 int compteur;                     // Compteur pour le buffer
 String texte;                     // Texte issu du buffer
 char symbole;                     // Caractère tampon utilisé pour extraire les coordonnées de la trame GPS
-double coordonnees[2];     // Latitude/longitude en millionièmes de degré
+double coordonnees[2];            // Latitude/longitude en millionièmes de degré
+double dernieresCoordonnees[2];   // Dernières coordonnées envoyées (pour le lissage exponentiel)
+double alpha2 = 0.05;
 
 void GPSSetup()
 {
@@ -29,10 +31,20 @@ void GPSLoop()
 }
 
 double GPSReadLat() {
+    if ((dernieresCoordonnees[0] > 0.1)&&(dernieresCoordonnees[0] < 90.0)) {
+      dernieresCoordonnees[0] = alpha2*coordonnees[0] + (1-alpha)*dernieresCoordonnees[0];
+    } else {
+      dernieresCoordonnees[0] = coordonnees[0];
+    }
     return coordonnees[0];
 }
 
 double GPSReadLong() {
+    if ((dernieresCoordonnees[1] > 0.1)&&(dernieresCoordonnees[1] < 90.0)) {
+      dernieresCoordonnees[1] = alpha2*coordonnees[1] + (1-alpha)*dernieresCoordonnees[1];
+    } else {
+      dernieresCoordonnees[1] = coordonnees[1];
+    }
     return coordonnees[1];
 }
 

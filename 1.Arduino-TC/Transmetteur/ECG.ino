@@ -1,7 +1,7 @@
 #include <Wire.h>
 
 int U = 0;              // Tension entre les électrodes
-int lim = 500;          // Limite de U pour que ce soit considéré comme un battement
+int lim = 550;          // Limite de U pour que ce soit considéré comme un battement
 bool superieur = false; // Booléen qui est vrai quand U dépasse lim ; permet de similuer un front montant
 unsigned long t1 = 0;   // Temps du dernier battement
 unsigned long t2 = 0;   // Temps du battement précédent
@@ -33,7 +33,7 @@ void ECGLoop() {
             if (t2 != 0) {
                 freq = 1000000.0/(t1-t2)*60;
                 if (BPM > 0) {
-                    if ((freq >= BPM*0.7 && freq <= BPM*1.3)) {            //(freq > 60 && freq < 200) ,c'est ce qu'on avait avant
+                    if ((freq >= BPM*0.5 && freq <= BPM*1.5)) { //(freq > 60 && freq < 200), c'est ce qu'on avait avant
                       BPM = alpha*freq + (1.0-alpha)*BPM; // La fréquence cardiaque est obtenue via lissage exponentiel entre la dernière fréquence et l'estimation précédente
                     }
                 } else {

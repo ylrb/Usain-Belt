@@ -18,6 +18,9 @@ unsigned long rLong;
 // Coordonnées de la prise de mesure k
 unsigned long lat;
 unsigned long lon;
+unsigned long latLisse;
+unsigned long lonLisse;
+float alpha = 0.05;
 
 void setup() {
   Serial.begin(9600);
@@ -55,8 +58,31 @@ void loop(void) {
                     Serial.println(payload.pas[k]);
                     lat = (unsigned long) (rLat + payload.deltaLat[k]);
                     lon = (unsigned long) (rLong + payload.deltaLong[k]);
-                    Serial.println(lat);
-                    Serial.println(lon);
+
+                    // Lissage
+                    if ((lat < 1000000)||(lat > 90000000)) {
+                        lat = 0;
+                        latLisse = 0;
+                    } else {
+                        if (latLisse > 0) {
+                            latLisse = (unsigned long) ((float)lat*alpha + (float)latLisse*(1.0-alpha));
+                        } else {
+                            latLisse = lat;
+                        }
+                    }
+                    if ((lon < 1000000)||(lon > 90000000)) {
+                        lon = 0;
+                        lonLisse = 0;
+                    } else {
+                        if (lonLisse > 0) {
+                            lonLisse = (unsigned long) ((float)lon*alpha + (float)lonLisse*(1.0-alpha));
+                        } else {
+                            lonLisse = lon;
+                        }
+                    }
+
+                    Serial.println(latLisse);
+                    Serial.println(lonLisse);
                 }
                 break;
         }

@@ -7,7 +7,7 @@ unsigned long t1 = 0;   // Temps du dernier battement
 unsigned long t2 = 0;   // Temps du battement précédent
 float freq = 0.0;       // Valeur de la fréquence cardiaque à partir des deux derniers temps
 float BPM = 0.0;        // Fréquence cardiaque avec le lissage
-float alpha = 0.1;      // Coefficient pour le lissage exponentiel
+float alpha = 0.5;      // Coefficient pour le lissage exponentiel
 
 void ECGSetup() {
     pinMode(6, INPUT);  // Pin pour LO +

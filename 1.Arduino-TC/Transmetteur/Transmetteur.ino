@@ -42,8 +42,8 @@ void loop(){
 
         // Paquet de référence tous les 4 paquets de mesures : on réinitialise les valeurs de refLat et refLong
         if (c == 4) {
-            refLat = GPSReadLat();
-            refLong = GPSReadLong();
+            refLat = GPSReadLat()*1000000;
+            refLong = GPSReadLong()*1000000;
             envoiRef(refLat,refLong);
             c = 0;
         }
